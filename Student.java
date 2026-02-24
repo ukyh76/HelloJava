@@ -1,5 +1,5 @@
 import java.io.Serializable;
-
+//0224 22:54增加一行代码做测试
 public class Student implements Serializable {
     private String id;
     private String name;
