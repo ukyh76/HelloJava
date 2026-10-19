@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Campus Learning</title>
+    <link rel="stylesheet" href="/app.css">
+</head>
+<body>
+<div id="toast" class="toast" aria-live="polite"></div>
+
+<main id="authView" class="auth-layout">
+    <section class="hero-panel">
+        <div class="brand-mark">CL</div>
+        <p class="eyebrow">CAMPUS LEARNING</p>
+        <h1>让每一次学习<br>都有更好的方向</h1>
+        <p class="hero-copy">检索课程资料、管理兴趣标签，并通过多种推荐策略发现适合自己的内容。</p>
+        <div class="demo-box">
+            <span>演示账号</span>
+            <p>学生：stu_zhang / 123456</p>
+            <p>教师：teacher_li / 123456</p>
+        </div>
+    </section>
+
+    <section class="auth-panel">
+        <div class="auth-card">
+            <div class="auth-tabs">
+                <button class="tab active" data-auth-tab="login">登录</button>
+                <button class="tab" data-auth-tab="register">注册</button>
+            </div>
+
+            <form id="loginForm" class="form-stack">
+                <label>用户名<input name="username" required autocomplete="username"></label>
+                <label>密码<input name="password" type="password" required autocomplete="current-password"></label>
+                <button class="primary-button" type="submit">进入学习空间</button>
+            </form>
+
+            <form id="registerForm" class="form-stack hidden">
+                <label>用户名<input name="username" required></label>
+                <label>密码<input name="password" type="password" required></label>
+                <label>角色
+                    <select name="role">
+                        <option value="STUDENT">学生</option>
+                        <option value="TEACHER">教师 / 管理员</option>
+                    </select>
+                </label>
+                <button class="primary-button" type="submit">创建账号</button>
+            </form>
+        </div>
+    </section>
+</main>
+
+<div id="appView" class="app-shell hidden">
+    <aside class="sidebar">
+        <div class="brand"><span>CL</span><strong>Campus Learning</strong></div>
+        <nav>
+            <button class="nav-item active" data-page="resources">资料中心</button>
+            <button class="nav-item" data-page="recommendations">智能推荐</button>
+            <button class="nav-item student-only" data-page="tags">兴趣标签</button>
+            <button class="nav-item teacher-only" data-page="manage">资源管理</button>
+        </nav>
+        <button id="logoutButton" class="logout-button">退出登录</button>
+    </aside>
+
+    <div class="workspace">
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">LEARNING WORKSPACE</p>
+                <h2 id="pageTitle">资料中心</h2>
+            </div>
+            <div class="user-chip">
+                <span id="userAvatar">学</span>
+                <div><strong id="username"></strong><small id="roleName"></small></div>
+            </div>
+        </header>
+
+        <section id="resourcesPage" class="page active">
+            <div class="toolbar">
+                <div class="search-box">
+                    <input id="searchInput" placeholder="输入关键词，例如 Java、算法">
+                    <button id="searchButton">搜索</button>
+                </div>
+                <button id="showAllButton" class="secondary-button">查看全部</button>
+            </div>
+            <div id="resourceGrid" class="resource-grid"></div>
+        </section>
+
+        <section id="recommendationsPage" class="page">
+            <div class="section-heading">
+                <div><p class="eyebrow">PERSONALIZED</p><h3>为你推荐</h3></div>
+                <div class="recommend-controls">
+                    <select id="strategySelect">
+                        <option value="hybrid">混合推荐</option>
+                        <option value="tag">标签相似度</option>
+                        <option value="hot">全局热度</option>
+                        <option value="collaborative">协同过滤</option>
+                    </select>
+                    <select id="topNSelect">
+                        <option value="3">Top 3</option>
+                        <option value="5" selected>Top 5</option>
+                        <option value="10">Top 10</option>
+                    </select>
+                    <button id="recommendButton" class="primary-button compact">生成推荐</button>
+                </div>
+            </div>
+            <div id="recommendationList" class="recommend-list empty-state">选择策略后生成推荐结果</div>
+        </section>
+
+        <section id="tagsPage" class="page">
+            <div class="narrow-card">
+                <p class="eyebrow">YOUR INTERESTS</p>
+                <h3>我的兴趣标签</h3>
+                <p class="muted">标签将用于计算学习资料与你的相似程度。</p>
+                <div id="tagList" class="tag-list"></div>
+                <form id="tagForm" class="inline-form">
+                    <input name="tag" placeholder="输入新标签" required>
+                    <button class="primary-button compact">添加</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="managePage" class="page">
+            <div class="narrow-card wide">
+                <p class="eyebrow">TEACHER TOOLS</p>
+                <h3>录入学习资料</h3>
+                <form id="resourceForm" class="form-grid">
+                    <label>资料 ID<input name="id" type="number" min="1" required></label>
+                    <label>热度分<input name="heatScore" type="number" min="0" required></label>
+                    <label class="full">标题<input name="title" required></label>
+                    <label>类别<input name="category" required></label>
+                    <label>标签<input name="tags" placeholder="Java,算法,集合"></label>
+                    <button class="primary-button full" type="submit">保存学习资料</button>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script src="/app.js"></script>
+</body>
+</html>
